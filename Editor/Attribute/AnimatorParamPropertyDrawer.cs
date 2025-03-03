@@ -41,7 +41,7 @@ namespace Akatsuki.Framework.GUI.Editor {
 
             // cant find parameter type match target type
             if (choices.Count == 0) {
-                container.AddHelpBoxToProperty(property, $"找不到匹配的参数 {type}");
+                container.AddHelpBoxToProperty(property, $"找不到匹配序列化的参数 {type}");
                 return container;
             }
 

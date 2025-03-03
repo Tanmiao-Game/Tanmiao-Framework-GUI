@@ -8,6 +8,7 @@
 | :-----------: | :--------------------------: | :-----: |
 |    HelpBox    |  Draw a help box down field  |        |
 | AnimatorParam | Popup aniamtor parameter key |        |
+|    Method    | Method button with parameter |        |
 
 ### Reference
 
