@@ -160,7 +160,7 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// <summary>
         /// Framebox
         /// </summary>
-        public static VisualElement BuildFrameboxStyle(this VisualElement element, float borderWidth = 2f, float corner = 5f) {
+        public static T BuildFrameboxStyle<T>(this T element, float borderWidth = 2f, float corner = 5f) where T : VisualElement {
             element.style.backgroundColor = Color.gray / 3f;
 
             element.style.borderTopWidth  = borderWidth;

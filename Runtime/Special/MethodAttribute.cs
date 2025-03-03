@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Akatsuki.Framework.GUI {
     /// <summary>
-    /// 按钮
+    /// 方法按钮
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class MethodAttribute : PropertyAttribute {

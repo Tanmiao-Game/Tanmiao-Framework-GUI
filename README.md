@@ -2,7 +2,7 @@
 
 > Framework of UIElement Drawers
 
-[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)
+[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)  
 Draw inspector elements based on VisualElement
 
 ### How to use
@@ -15,11 +15,12 @@ Draw inspector elements based on VisualElement
 
 ### Attribute List
 
-|          Attribute          |         Desctiption         | Preview |
-| :--------------------------: | :--------------------------: | :-----: |
-|       [HelpBox](#HelpBox)       |  Draw a help box down field  |        |
-| [AnimatorParam](#AnimatorParam) | Popup aniamtor parameter key |        |
-|        [Method](#Method)        | Method button with parameter |        |
+|          Attribute          |         Desctiption         |
+| :--------------------------: | :--------------------------: |
+|       [HelpBox](#HelpBox)       |  Draw a help box down field  |
+| [AnimatorParam](#AnimatorParam) | Popup aniamtor parameter key |
+|        [Method](#Method)        | Method button with parameter |
+|  [Expendable](#Expendable)  | Expend inspector for unity objects |
 
 #### HelpBox
 ```
@@ -65,6 +66,18 @@ public class Test : MonoBehaviour {
 }
 ```
 ![inspector](./Document~/Method.png)
+
+#### Expendable
+```
+public class Test : MonoBehaviour {
+    [Expendable]
+    public TestScriptObject scriptObject;
+
+    [Expendable]
+    public Animator animator;
+}
+```
+![inspector](./Document~/Expendable.png)
 
 ### Reference
 
