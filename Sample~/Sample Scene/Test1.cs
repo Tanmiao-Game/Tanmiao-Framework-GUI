@@ -19,7 +19,7 @@ namespace Akatsuki.Framework.GUI.Test {
         [field: SerializeField]
         public int TestPropertyIntValue { get; private set; }
 
-        [Method]
+        [Method(ConditionMode.Play)]
         public void TestMethod() {
             Debug.Log("this is test method");
         }

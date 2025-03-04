@@ -11,36 +11,38 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(UnityEngine.Object), true)]
     public class CustomCommonEditor : global::UnityEditor.Editor {
-        protected List<SerializedProperty> properties = new();
+        protected List<SerializedProperty> serializers = new();
         protected IEnumerable<MethodInfo> methods;
+        
+        protected static BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
         private void OnEnable() {
             InitSerializeProperty();
-            InitMethod();
+            InitReflectionValues();
         }
 
         /// <summary>
         /// 初始化 序列化 字段
         /// </summary>
         protected virtual void InitSerializeProperty() {
-            properties.Clear();
-            using (var iterator = serializedObject.GetIterator()) {
-                if (iterator.NextVisible(true)) {
-                    do {
-                        properties.Add(iterator.Copy());
-                    } while(iterator.NextVisible(true));
-                }
+            serializers.Clear();
+            using var iterator = serializedObject.GetIterator();
+            if (iterator.NextVisible(true)) {
+                do {
+                    serializers.Add(iterator.Copy());
+                } while (iterator.NextVisible(true));
             }
         }
 
         /// <summary>
         /// 初始化特殊的字段，属性，方法
         /// </summary>
-        protected virtual void InitMethod() {
+        protected virtual void InitReflectionValues() {
             var type = target.GetType();
-            // var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly);
-            // var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly);
-            var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly);
+            // var fields = type.GetFields(Flags);
+            // var properties = type.GetProperties(Flags);
+            var methods = type.GetMethods(Flags);
+            
             this.methods = methods.Where(method => method.GetCustomAttribute<MethodAttribute>() != null);
         }
 
@@ -56,8 +58,13 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// </summary>
         /// <param name="container"></param>
         protected virtual void DrawDefaultField(VisualElement container) {
-            foreach (var property in properties)
-                container.Add(new PropertyField(property));
+            foreach (var property in serializers) {
+                var field = new PropertyField(property);
+                if (property.name.Equals("m_Script", StringComparison.Ordinal))
+                    field.SetEnabled(false);
+
+                container.Add(field);
+            }
         }
 
         /// <summary>

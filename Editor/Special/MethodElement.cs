@@ -1,5 +1,6 @@
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Akatsuki.Framework.GUI.Editor {
@@ -30,6 +31,8 @@ namespace Akatsuki.Framework.GUI.Editor {
             }
 
             this.Insert(0, new Button(() => method.Invoke(target.targetObject, values)) { text = this.name });
+
+            SetEnabled(attribute.Mode.IsOnCondition());
         }
     }
 }

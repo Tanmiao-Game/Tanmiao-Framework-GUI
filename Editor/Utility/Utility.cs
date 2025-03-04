@@ -12,7 +12,8 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// 在原来面板的基础上增加一个 HelpBox
         /// </summary>
         public static void AddHelpBoxToProperty(this VisualElement element, SerializedProperty property, string message, HelpBoxMessageType type = HelpBoxMessageType.Info) {
-            element.Add(new PropertyField(property));
+            if (property != null)
+                element.Add(new PropertyField(property));
             element.Add(new HelpBox(message, type));
         }
 
@@ -181,6 +182,15 @@ namespace Akatsuki.Framework.GUI.Editor {
             element.style.borderRightColor = Color.black;
             
             return element;
+        }
+
+        /// <summary>
+        /// style.display 控制显示与隐藏
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="active"></param>
+        public static void ActiveOrNot(this VisualElement element, bool active) {
+            element.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
         }
         #endregion
 

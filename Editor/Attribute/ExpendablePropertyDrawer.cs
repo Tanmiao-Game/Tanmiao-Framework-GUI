@@ -26,11 +26,11 @@ namespace Akatsuki.Framework.GUI.Editor {
                 var newValue = evt.changedProperty.objectReferenceValue;
                 var visible  = newValue != null;
                 toggle[0].visible = visible;
-                imguiContainer.style.display = newValue != null ? DisplayStyle.Flex : DisplayStyle.None;
+                imguiContainer.ActiveOrNot(newValue != null);
                 if (visible) {
                     imguiContainer.onGUIHandler = () => UnityEditor.Editor.CreateEditor(newValue).DrawDefaultInspector();
                 } else {
-                    container.Clear();
+                    // container.Clear();
                 }
             });
 

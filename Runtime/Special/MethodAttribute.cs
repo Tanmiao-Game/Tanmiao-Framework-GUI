@@ -8,10 +8,12 @@ namespace Akatsuki.Framework.GUI {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class MethodAttribute : PropertyAttribute {
         public string MethodName { get; private set; }
+        public ConditionMode Mode { get; private set; }
 
-        public MethodAttribute() : this(default) {}
-        public MethodAttribute(string methodName) {
+        public MethodAttribute(ConditionMode mode = ConditionMode.Always) : this(default, mode) {}
+        public MethodAttribute(string methodName, ConditionMode mode = ConditionMode.Always) {
             MethodName = methodName;
+            Mode = mode;
         }
     }
 }
