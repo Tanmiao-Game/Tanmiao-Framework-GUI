@@ -2,7 +2,7 @@
 
 > Framework of UIElement Drawers
 
-[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)  
+[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)
 Draw inspector elements based on VisualElement
 
 ### How to use
@@ -15,14 +15,17 @@ Draw inspector elements based on VisualElement
 
 ### Attribute List
 
-|          Attribute          |         Desctiption         |
-| :--------------------------: | :--------------------------: |
-|       [HelpBox](#HelpBox)       |  Draw a help box down field  |
-| [AnimatorParam](#AnimatorParam) | Popup aniamtor parameter key |
-|        [Method](#Method)        | Method button with parameter |
-|  [Expendable](#Expendable)  | Expend inspector for unity objects |
+|          Attribute          |            Desctiption            |
+| :--------------------------: | :--------------------------------: |
+|       [HelpBox](#HelpBox)       |     Draw a help box down field     |
+| [AnimatorParam](#AnimatorParam) |    Popup aniamtor parameter key    |
+|        [Method](#Method)        |    Method button with parameter    |
+|    [Expendable](#Expendable)    | Expend inspector for unity objects |
+|     [Selection](#Selection)     |  Selection popup for const values  |
+| [SelectionPath](#SelectionPath) |         Selection for path         |
 
 #### HelpBox
+
 ```
 public class Test : MonoBehaviour {
     [field: HelpBox("this is property", HelpBoxMessageType.Error)]
@@ -30,9 +33,11 @@ public class Test : MonoBehaviour {
     public int TestPropertyIntValue { get; private set; }
 }
 ```
+
 ![inspector](./Document~/HelpBox.png)
 
 #### AnimatorParam
+
 ```
 public class Test : MonoBehaviour {
     public Animator animator;
@@ -47,16 +52,18 @@ public class Test : MonoBehaviour {
     public float animatorFloat;
 }
 ```
+
 ![inspector](./Document~/AnimatorParam.png)
 
 #### Method
+
 ```
 public class Test : MonoBehaviour {
     [Method]
     public void TestMethod() {
         Debug.Log("this is test method");
     }
-    
+  
     // if method have parameters
     // inspector will have framebox style to pack visual elements
     [Method("Test parameter method")]
@@ -65,9 +72,11 @@ public class Test : MonoBehaviour {
     }
 }
 ```
+
 ![inspector](./Document~/Method.png)
 
 #### Expendable
+
 ```
 public class Test : MonoBehaviour {
     [Expendable]
@@ -77,7 +86,45 @@ public class Test : MonoBehaviour {
     public Animator animator;
 }
 ```
+
 ![inspector](./Document~/Expendable.png)
+
+#### Selection
+
+```
+public class Test : MonoBehaviour {
+    [Selection(typeof(CommonForTest))]
+    public int testForSelection1;
+    [Selection(typeof(CommonForTest))]
+    public string textForSelection2;
+    [Selection(typeof(CommonForTest.CommonForTestOfSub), true)]
+    public string textForSelection3;
+}
+```
+
+![inspector](./Document~/Selection.png)
+
+#### SelectionPath
+
+```
+public class Test : MonoBehaviour {
+    [SelectionPath]
+    public int testForPath1;
+    [SelectionPath]
+    public string testForPath2;
+}
+```
+
+![inspector](./Document~/SelectionPath.png)
+
+<!-- #### 
+```
+public class Test : MonoBehaviour {
+  
+}
+```
+
+![inspector](./Document~) -->
 
 ### Reference
 

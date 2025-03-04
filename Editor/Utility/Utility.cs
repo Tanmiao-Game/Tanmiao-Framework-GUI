@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System;
 using UnityEngine;
+using System.IO;
+using System.Linq;
 
 namespace Akatsuki.Framework.GUI.Editor {
     public static class Utility {
@@ -179,6 +181,46 @@ namespace Akatsuki.Framework.GUI.Editor {
             element.style.borderRightColor = Color.black;
             
             return element;
+        }
+        #endregion
+
+        #region File
+        /// <summary>
+        /// 获得文件路径
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="extension">后缀，不需要带 . </param>
+        public static string GetFileLocation(this string name, string extension) {
+            var guids = AssetDatabase.FindAssets(name);
+            foreach (var guid in guids) {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                if (path.Split('/').Last().Equals($"{name}.{extension}")) {
+                    return path;
+                }
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// 获得资源路径
+        /// </summary>
+        /// <param name="path">
+        ///     例：C://Demo/Assets/Res/Textures/Test.png => Assets/Res/Textures/Test.png
+        /// </param>
+        /// <returns></returns>
+        public static string GetRelativeAssetsPath(this string path) {
+            return "Assets" + Path.GetFullPath(path).Replace(Path.GetFullPath(Application.dataPath), "").Replace('\\', '/');
+        }
+
+        /// <summary>
+        /// 获得详细路径
+        /// </summary>
+        /// <param name="path">
+        ///     例：Assets/Res/Textures/Test.png => C://Demo/Assets/Res/Textures/Test.png
+        /// </param>
+        /// <returns></returns>
+        public static string GetFullAssetsPath(this string path) {
+            return Path.Combine(Application.dataPath, path.Replace("Assets/", ""));
         }
         #endregion
 
