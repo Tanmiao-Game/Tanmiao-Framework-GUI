@@ -18,19 +18,40 @@ namespace Akatsuki.Framework.GUI.Editor {
             else
                 this.name = attribute.MethodName;
             
-            // params
+            // parameters
             var parameters = method.GetParameters();
             values = new object[parameters.Length];
-            if (parameters.Length > 0) {
-                this.BuildFrameboxStyle();
-                for (int i = 0; i < parameters.Length; i++) {
-                    var index = i;
-                    var parameter = parameters[index];
-                    this.Add(parameter.ParameterType.CreatePropertyField(parameter.Name, evt => values[index] = evt));
+
+            // foldout
+            var foldout = new Foldout() {
+                text  = $"[Method]{this.name}",
+                style = {
+                    flexGrow = 1f,
                 }
+            };
+            var toggle = foldout.Q<Toggle>();
+            toggle.Add(new Button(() => method.Invoke(target.targetObject, values)) {
+                text = "Invoke",
+                style = {
+                    width = 100,
+                    unityFontStyleAndWeight = FontStyle.Bold
+                },
+            });
+            this.Add(foldout);
+
+            // force callback
+            toggle.RegisterCallback<MouseEnterEvent>(_ => toggle.BuildSelectedBackgroundColor());
+            toggle.RegisterCallback<MouseLeaveEvent>(_ => toggle.BuildDefaultBackgroundColor());
+
+            // parameters fields
+            for (int i = 0; i < parameters.Length; i++) {
+                var index = i;
+                var parameter = parameters[index];
+                foldout.Add(parameter.ParameterType.CreatePropertyField(parameter.Name, evt => values[index] = evt));
             }
 
-            this.Insert(0, new Button(() => method.Invoke(target.targetObject, values)) { text = this.name });
+            // if there is no parameters, hide toggle
+            foldout.Q("unity-checkmark").visible = parameters.Length > 0;
 
             SetEnabled(attribute.Mode.IsOnCondition());
         }

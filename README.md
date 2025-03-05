@@ -27,9 +27,9 @@ Draw inspector elements based on VisualElement
 | SelectionRef                 | Selection for SerializeReference object   | ❌    |
 | [EnableIf](#EnableIf)           | Enable or not for field                   | ✔️  |
 | [ShowIf](#ShowIf)               | Active or not for field                   | ✔️  |
-| Layer                        | Layer for int / string field value        | ❌    |
-| SortingLayer                 | SortingLayer for int / string field value | ❌    |
-| Tag                          | Tag for string field value                | ❌    |
+| [Layer](#Layer)                 | Layer for int / string field value        | ✔️  |
+| [SortingLayer](#SortingLayer)   | SortingLayer for int / string field value | ✔️  |
+| [Tag](#Tag)                     | Tag for string field value                | ✔️  |
 | ProgressBar                  | ProgressBar for slider value              | ❌    |
 | ResizableTextArea            | TextArea flex resize area                 | ❌    |
 | Scene                        | Build scene for string value              | ❌    |
@@ -188,6 +188,43 @@ public class Test : MonoBehaviour {
 
 ![inspector](./Document~/Show%20If.png)
 
+#### Layer
+
+```
+public class Test : MonoBehaviour {
+    [Layer]
+    public int layerIntValue;
+    [Layer]
+    public string layerStrValue;
+}
+```
+
+![inspector](./Document~/Layer.png)
+
+#### SortingLayer
+
+```
+public class Test : MonoBehaviour {
+    [SortingLayer]
+    public int sortingLayerIntValue;
+    [SortingLayer]
+    public string sortingLayerStrValue;
+}
+```
+
+![inspector](./Document~/SortingLayer.png)
+
+#### Tag
+
+```
+public class Test : MonoBehaviour {
+    [Tag]
+    public string tagValue;
+}
+```
+
+![inspector](./Document~/Tag.png)
+
 <!-- #### 
 ```
 public class Test : MonoBehaviour {
@@ -199,4 +236,8 @@ public class Test : MonoBehaviour {
 
 ### Reference
 
+- [Unity-SerializeReferenceExtensions](https://github.com/mackysoft/Unity-SerializeReferenceExtensions)
 - [NaughtyAttributes](https://github.com/dbrizov/NaughtyAttributes)
+- [Tri-Inspector](https://github.com/codewriter-packages/Tri-Inspector)
+- [Unity-Editor-Toolbox](https://github.com/arimger/Unity-Editor-Toolbox)
+- [Markup-Attributes](https://github.com/gasgiant/Markup-Attributes)

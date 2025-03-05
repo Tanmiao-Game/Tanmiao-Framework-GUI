@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 121547266}
   - component: {fileID: 121547265}
   m_Layer: 0
-  m_Name: TestObject AnimatorParam HelpBox Method
+  m_Name: Test AnimatorParam HelpBox Method
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 518881173}
   - component: {fileID: 518881174}
   m_Layer: 0
-  m_Name: TestObject Selection
+  m_Name: Test Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 1721437490}
   - component: {fileID: 1721437491}
   m_Layer: 0
-  m_Name: TestObject Expendable
+  m_Name: Test Expendable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 1839994845}
   - component: {fileID: 1839994846}
   m_Layer: 0
-  m_Name: TestObject Show If
+  m_Name: Test Layer SortingLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,11 +636,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149fe89e4495c964389047eb9e522188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showForValue1: 1
-  <ShowForValue2>k__BackingField: 1
-  value1: 
-  value2: 0
-  value3: {fileID: 0}
+  layerIntValue: 0
+  layerStrValue: IgnoreRaycast
+  sortingLayerIntValue: 0
+  sortingLayerStrValue: Top
 --- !u!1 &2087334280
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +651,7 @@ GameObject:
   - component: {fileID: 2087334281}
   - component: {fileID: 2087334282}
   m_Layer: 0
-  m_Name: TestObject Enable If
+  m_Name: Test EnableIf ShowIf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,6 +689,11 @@ MonoBehaviour:
   value1: 
   value2: 0
   value3: {fileID: 0}
+  showForValue1: 1
+  <ShowForValue2>k__BackingField: 0
+  value4: 
+  value5: 0
+  value6: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

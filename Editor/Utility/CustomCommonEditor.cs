@@ -29,6 +29,8 @@ namespace Akatsuki.Framework.GUI.Editor {
             using var iterator = serializedObject.GetIterator();
             if (iterator.NextVisible(true)) {
                 do {
+                    // skip children serializer
+                    if (iterator.depth > 0) continue;
                     serializers.Add(iterator.Copy());
                 } while (iterator.NextVisible(true));
             }

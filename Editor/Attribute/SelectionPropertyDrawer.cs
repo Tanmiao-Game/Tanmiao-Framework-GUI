@@ -46,7 +46,7 @@ namespace Akatsuki.Framework.GUI.Editor {
                         flexGrow = 1f,
                     }
                 };
-                dropDown[1].AddToClassList(".unity-property-field__label");
+                dropDown.AddToClassList("unity-base-field__aligned");
                 dropDown.RegisterCallback<ClickEvent>(evt => {
                     var field = new AdvanceDropField(type.FullName, names, item => {
                         dropDown.value = item.fullName;
@@ -75,6 +75,7 @@ namespace Akatsuki.Framework.GUI.Editor {
                         property.stringValue = evt.newValue;
                         property.serializedObject.ApplyModifiedProperties(); 
                     });
+                    editTextField.AddToClassList("unity-base-field__aligned");
                     container.Add(editTextField);
 
                     dropDown.style.display = editTextField.style.display == DisplayStyle.None ? DisplayStyle.Flex : DisplayStyle.None;

@@ -46,14 +46,12 @@ namespace Akatsuki.Framework.GUI.Editor {
             }
 
             void SetAnimatorParamValue(string value) {
-                if (propertyType == SerializedPropertyType.Integer)
-                    property.SetPropertyValue(Animator.StringToHash(value));
-                else if (propertyType == SerializedPropertyType.String)
-                    property.SetPropertyValue(value);
+                if (propertyType == SerializedPropertyType.Integer) property.intValue = Animator.StringToHash(value);
+                else if (propertyType == SerializedPropertyType.String) property.stringValue = value;
                 property.serializedObject.ApplyModifiedProperties();
             }
 
-            var dropDownField = new DropdownField(property.displayName, choices, defaultIndex);
+            var dropDownField = new DropdownField(property.displayName, choices, defaultIndex).BuildFieldAlignStyle();
             dropDownField.RegisterValueChangedCallback(evt => SetAnimatorParamValue(evt.newValue));
             container.Add(dropDownField);
 

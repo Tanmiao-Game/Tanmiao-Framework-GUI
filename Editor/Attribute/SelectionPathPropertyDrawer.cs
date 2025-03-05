@@ -25,7 +25,7 @@ namespace Akatsuki.Framework.GUI.Editor {
                         flexGrow = 1f,
                         flexShrink = 1f,
                     }
-                };
+                }.BuildFieldAlignStyle();
                 container.Add(pathTextField);
 
                 var chooseBtn = new Button(() => {
