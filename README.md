@@ -3,6 +3,7 @@
 > Framework of UIElement Drawers
 
 [![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)
+
 Draw inspector elements based on VisualElement
 
 ### How to use
@@ -15,15 +16,26 @@ Draw inspector elements based on VisualElement
 
 ### Attribute List
 
-|          Attribute          |            Desctiption            |
-| :--------------------------: | :--------------------------------: |
-|       [HelpBox](#HelpBox)       |     Draw a help box down field     |
-| [AnimatorParam](#AnimatorParam) |    Popup aniamtor parameter key    |
-|        [Method](#Method)        |    Method button with parameter    |
-|    [Expendable](#Expendable)    | Expend inspector for unity objects |
-|     [Selection](#Selection)     |  Selection popup for const values  |
-| [SelectionPath](#SelectionPath) |         Selection for path         |
-|      [EnableIf](#EnableIf)      |        Is enabled for field        |
+| Attribute                    | Desctiption                               | State |
+| :--------------------------- | :---------------------------------------- | :---- |
+| [HelpBox](#HelpBox)             | Draw a help box down field                | ✔️  |
+| [AnimatorParam](#AnimatorParam) | Popup aniamtor parameter key              | ✔️  |
+| [Method](#Method)               | Method button with parameter              | ✔️  |
+| [Expendable](#Expendable)       | Expend inspector for unity objects        | ✔️  |
+| [Selection](#Selection)         | Selection popup for const values          | ✔️  |
+| [SelectionPath](#SelectionPath) | Selection for path                        | ✔️  |
+| SelectionRef                 | Selection for SerializeReference object   | ❌    |
+| [EnableIf](#EnableIf)           | Enable or not for field                   | ✔️  |
+| [ShowIf](#ShowIf)               | Active or not for field                   | ✔️  |
+| Layer                        | Layer for int / string field value        | ❌    |
+| SortingLayer                 | SortingLayer for int / string field value | ❌    |
+| Tag                          | Tag for string field value                | ❌    |
+| ProgressBar                  | ProgressBar for slider value              | ❌    |
+| ResizableTextArea            | TextArea flex resize area                 | ❌    |
+| Scene                        | Build scene for string value              | ❌    |
+| Preview                      | Editor preview icon for object            | ❌    |
+| BoxGroup                     | Group for fields                          | ❌    |
+| Foldout                      | Foldout for fields                        | ❌    |
 
 #### HelpBox
 
@@ -146,6 +158,35 @@ public class Test : MonoBehaviour {
 ```
 
 ![inspector](./Document~/EnableIf.png)
+
+#### ShowIf
+
+```
+public class Test : MonoBehaviour {
+    public bool showForValue1;
+
+    [field: SerializeField]
+    public bool ShowForValue2 { get; private set; }
+
+    public bool ShowForValue3() {
+        return ShowForValue2;
+    }
+
+    [ShowIf(nameof(showForValue1))]
+    [SelectionPath]
+    public string value1;
+
+    [ShowIf(ConditionOperator.And, nameof(showForValue1), nameof(ShowForValue2))]
+    public int value2;
+
+    [HelpBox("For non-param method with bool return")]
+    [ShowIf(nameof(ShowForValue3))]
+    [Expendable]
+    public ScriptableObject value3;
+}
+```
+
+![inspector](./Document~/Show%20If.png)
 
 <!-- #### 
 ```

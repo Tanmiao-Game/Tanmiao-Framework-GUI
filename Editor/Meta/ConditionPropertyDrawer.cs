@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -6,26 +5,15 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Akatsuki.Framework.GUI.Editor {
-    [CustomPropertyDrawer(typeof(EnableIfAttribute))]
-    public class EnableIfPropertyDrawer : PropertyDrawer {
+    [CustomPropertyDrawer(typeof(ConditionAttribute), true)]
+    public abstract class ConditionPropertyDrawer : PropertyDrawer {
         protected static BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
-        
-        public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement();
 
-            var element = new PropertyField(property);
-            container.Add(element);
-
-            element.schedule.Execute(() => element.SetEnabled(IsEnabledField(property))).Every(1);
-
-            return container;
-        }
-
-        protected bool IsEnabledField(SerializedProperty property) {
+        protected virtual bool GetResultForConditionField(SerializedProperty property) {
             var instance = property.serializedObject.targetObject;
             var type  = instance.GetType();
-            var values = ((EnableIfAttribute)attribute).Values;
-            var result = ((EnableIfAttribute)attribute).Condition == ConditionOperator.And;
+            var values = ((ConditionAttribute)attribute).Values;
+            var result = ((ConditionAttribute)attribute).Condition == ConditionOperator.And;
             foreach (var value in values) {
                 bool thisResult;
                 if (string.IsNullOrEmpty(value))
@@ -53,7 +41,7 @@ namespace Akatsuki.Framework.GUI.Editor {
                     }
                 }
 
-                if (((EnableIfAttribute)attribute).Condition == ConditionOperator.And) {
+                if (((ConditionAttribute)attribute).Condition == ConditionOperator.And) {
                     result &= thisResult;
                     if (!result) break;
                 } else {
