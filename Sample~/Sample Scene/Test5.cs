@@ -7,9 +7,20 @@ namespace Akatsuki.Framework.GUI.Test {
         [Layer]
         public string layerStrValue;
 
+        [Space]
         [SortingLayer]
         public int sortingLayerIntValue;
         [SortingLayer]
         public string sortingLayerStrValue;
+
+        [Space]
+        [Tag]
+        public string tagValue;
+
+        [Space]
+        [Scene]
+        public string sceneName;
+        [Scene]
+        public int sceneIndex;
     }
 }

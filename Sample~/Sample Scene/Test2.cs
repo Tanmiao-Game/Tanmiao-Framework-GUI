@@ -8,5 +8,8 @@ namespace Akatsuki.Framework.GUI.Test {
 
         [Expendable]
         public Animator animator;
+
+        [Expendable]
+        public Test1 test;
     }
 }

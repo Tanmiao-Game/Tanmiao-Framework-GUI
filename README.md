@@ -32,8 +32,8 @@ Draw inspector elements based on VisualElement
 | [Tag](#Tag)                     | Tag for string field value                | ✔️  |
 | ProgressBar                  | ProgressBar for slider value              | ❌    |
 | ResizableTextArea            | TextArea flex resize area                 | ❌    |
-| Scene                        | Build scene for string value              | ❌    |
-| Preview                      | Editor preview icon for object            | ❌    |
+| [Scene](#Scene)                 | Scene for string value                    | ✔️  |
+| [Preview](#Preview)             | Editor preview icon for object            | ✔️  |
 | BoxGroup                     | Group for fields                          | ❌    |
 | Foldout                      | Foldout for fields                        | ❌    |
 
@@ -224,6 +224,34 @@ public class Test : MonoBehaviour {
 ```
 
 ![inspector](./Document~/Tag.png)
+
+#### Scene
+
+```
+public class Test : MonoBehaviour {
+    [Scene]
+    public string sceneName;
+    [Scene]
+    public int sceneIndex;
+}
+```
+
+![inspector](./Document~/Scene.png)
+
+#### Preview
+
+```
+public class Test : MonoBehaviour {
+    [Preview]
+    public Sprite sprite;
+    [Preview]
+    public TextAsset text;
+    [Preview]
+    public GameObject prefab;
+}
+```
+
+![inspector](./Document~/Preview.png)
 
 <!-- #### 
 ```

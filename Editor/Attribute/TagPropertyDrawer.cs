@@ -13,7 +13,7 @@ namespace Akatsuki.Framework.GUI.Editor {
             var container = new VisualElement();
 
             var propertyType = property.propertyType;
-            if (propertyType != SerializedPropertyType.Integer && propertyType != SerializedPropertyType.String) {
+            if (propertyType != SerializedPropertyType.String) {
                 container.Add(new PropertyField(property));
                 return container;
             }

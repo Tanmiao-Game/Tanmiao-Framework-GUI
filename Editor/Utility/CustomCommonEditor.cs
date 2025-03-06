@@ -60,13 +60,16 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// </summary>
         /// <param name="container"></param>
         protected virtual void DrawDefaultField(VisualElement container) {
+            // serializedObject.Update();
             foreach (var property in serializers) {
                 var field = new PropertyField(property);
+                field.Bind(serializedObject);
                 if (property.name.Equals("m_Script", StringComparison.Ordinal))
                     field.SetEnabled(false);
 
                 container.Add(field);
             }
+            // serializedObject.ApplyModifiedProperties();
         }
 
         /// <summary>
