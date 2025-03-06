@@ -1,4 +1,4 @@
-namespace Akatsuki.Framework.GUI.Test {
+namespace Akatsuki.Framework.GUI.AttributeTest {
     public class CommonForTest {
         public const string A = "A";
         public const string B = "B";

@@ -30,8 +30,12 @@ Draw inspector elements based on VisualElement
 | [Layer](#Layer)                 | Layer for int / string field value        | ✔️  |
 | [SortingLayer](#SortingLayer)   | SortingLayer for int / string field value | ✔️  |
 | [Tag](#Tag)                     | Tag for string field value                | ✔️  |
+| Drapdown                     | Dropdown for value to select array        | ❌    |
 | ProgressBar                  | ProgressBar for slider value              | ❌    |
 | ResizableTextArea            | TextArea flex resize area                 | ❌    |
+| OnValueChanged               | Valued changed callback                   | ❌    |
+| Validator                    | Used for validating the fields            | ❌    |
+| Require                      | If empty throw error to remind user       | ❌    |
 | [Scene](#Scene)                 | Scene for string value                    | ✔️  |
 | [Preview](#Preview)             | Editor preview icon for object            | ✔️  |
 | BoxGroup                     | Group for fields                          | ❌    |
@@ -261,6 +265,14 @@ public class Test : MonoBehaviour {
 ```
 
 ![inspector](./Document~) -->
+
+### Serialized Class List
+
+| Class                | Desctiption                      | State |
+| :------------------- | :------------------------------- | :---- |
+| SerializedDropdown   | Popup field for dropdown object  | ❌    |
+| SerializedDictionary | Serialized for dictionary object | ❌    |
+| SerializedDirectory  | Serialized for directory object  | ❌    |
 
 ### Reference
 

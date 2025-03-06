@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Akatsuki.Framework.GUI.Test {
+namespace Akatsuki.Framework.GUI.AttributeTest {
     public class Test1 : MonoBehaviour {
         public Animator animator;
 

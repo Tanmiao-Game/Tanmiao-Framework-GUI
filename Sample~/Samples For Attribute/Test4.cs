@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Akatsuki.Framework.GUI.Test {
+namespace Akatsuki.Framework.GUI.AttributeTest {
     public class Test4 : MonoBehaviour {
         public bool enableForValue1;
 

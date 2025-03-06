@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Akatsuki.Framework.GUI.Test {
+namespace Akatsuki.Framework.GUI.AttributeTest {
     public class Test3 : MonoBehaviour {
         [Selection(typeof(CommonForTest))]
         public int testForSelection1;

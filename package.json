@@ -2,7 +2,7 @@
     "name": "com.akatsuki.framework.gui",
     "version": "0.0.1",
     "displayName": "Akatsuki Framework GUI",
-    "description": "Akatsuki Framework UIToolKit for gui drawer",
+    "description": "Akatsuki Framework for gui drawer and serialized objects",
     "unity": "2022.3",
     "author": {
       "name": "Akatsuki",
@@ -10,9 +10,9 @@
     },
     "samples": [
       {
-          "displayName": "Sample Attribute using",
-          "description": "Sample Attribute using",
-          "path": "Samples~/Sample Scene"
+          "displayName": "Samples For Attribute",
+          "description": "Samples for using attributes",
+          "path": "Samples~/Samples For Attribute"
       }
    ]
 }
