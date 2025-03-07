@@ -17,6 +17,27 @@ namespace Akatsuki.Framework.GUI.Editor {
             element.Add(new HelpBox(message, type));
         }
 
+        /// <summary>
+        /// 获得编辑器内置 Icon，并转换到 Texture2D
+        /// </summary>
+        /// <returns></returns>
+        public static Texture2D GetEditorUtilityIcon(string name) {
+            var self = EditorGUIUtility.IconContent(name).image;
+            var sw = self.width;
+            var sh = self.height;
+            var format = TextureFormat.RGBA32;
+            var result = new Texture2D( sw, sh, format, false );
+            var currentRT = RenderTexture.active;
+            var rt = new RenderTexture( sw, sh, 32 );
+            Graphics.Blit( self, rt );
+            RenderTexture.active = rt;
+            var source = new Rect( 0, 0, rt.width, rt.height );
+            result.ReadPixels( source, 0, 0 );
+            result.Apply();
+            RenderTexture.active = currentRT;
+            return result;
+        }
+
         #region Property
         /// <summary>
         /// 创建一个绑定值的元素
@@ -109,12 +130,16 @@ namespace Akatsuki.Framework.GUI.Editor {
             return element;
         }
 
+        public static T BuildDarkBackgroundColor<T>(this T element) where T : VisualElement {
+            const float value = 40f / 255;
+            element.style.backgroundColor = new Color(value, value, value, 1);
+            return element;
+        }
+
         /// <summary>
         /// Framebox
         /// </summary>
         public static T BuildFrameboxStyle<T>(this T element, float borderWidth = 2f, float corner = 5f) where T : VisualElement {
-            element.style.backgroundColor = Color.gray / 3f;
-
             element.style.borderTopWidth  = borderWidth;
             element.style.borderBottomWidth = borderWidth;
             element.style.borderLeftWidth  = borderWidth;

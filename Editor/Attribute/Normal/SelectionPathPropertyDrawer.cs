@@ -28,10 +28,10 @@ namespace Akatsuki.Framework.GUI.Editor {
                 }.BuildFieldAlignStyle();
                 container.Add(pathTextField);
 
-                var chooseBtn = new Button(() => {
+                var selectBtn = new Button(() => {
                     // 来源: https://forum.unity.com/threads/editorutility-openfilepanel-causes-error-log-for-endlayoutgroup.1389873/
                     EditorApplication.delayCall += () => {
-                        value = EditorUtility.OpenFolderPanel($"Choose {property.displayName} Path", string.IsNullOrEmpty(value) ? Application.dataPath : value, "");
+                        value = EditorUtility.OpenFolderPanel($"Select {property.displayName} Path", string.IsNullOrEmpty(value) ? Application.dataPath : value, "");
                         if (value.Contains(Application.dataPath))
                             value = value.GetRelativeAssetsPath();
                         property.stringValue = value;
@@ -41,10 +41,15 @@ namespace Akatsuki.Framework.GUI.Editor {
                         AssetDatabase.SaveAssets();
                     };
                 }) {
-                    name = "choose-btn",
-                    text = "Choose",
+                    name = "select-btn",
+                    tooltip = "select path",
+                    style = {
+                        minWidth = 30,
+                        backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain)),
+                        backgroundImage = Utility.GetEditorUtilityIcon("d_Folder Icon"),
+                    },
                 };
-                container.Add(chooseBtn);
+                container.Add(selectBtn);
 
             } else {
                 container.style.flexDirection = FlexDirection.Column;

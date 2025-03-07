@@ -95,7 +95,12 @@ namespace Akatsuki.Framework.GUI.Editor {
                         }
                     }) {
                         name = "edit-btn",
-                        text = "Edit",
+                        tooltip = "edit",
+                        style = {
+                            minWidth = 30,
+                            backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain)),
+                            backgroundImage = Utility.GetEditorUtilityIcon("editicon.sml"),
+                        },
                     };
                     container.Add(editBtn);
                 }

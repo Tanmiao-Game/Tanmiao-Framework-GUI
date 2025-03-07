@@ -232,7 +232,7 @@ public class Test : MonoBehaviour {
 
 #### ProgressBar
 
-Directly drag progressbar to change value.  
+Directly drag progressbar to change value.
 If click right mouse button, will show menu actions "Edit", "Set To Min Value", "Set To Max Value".
 
 ```
@@ -272,7 +272,8 @@ public class Test : MonoBehaviour {
 
 #### Scene
 
-Default find all scenes in project, use first parameter to limit build scenes
+Default find all scenes in project, use first parameter to limit build scenes.
+Contains actions "Copy path to clipboard", "Open scene additive", "Close scene additive".
 
 ```
 public class Test : MonoBehaviour {
@@ -311,11 +312,18 @@ public class Test : MonoBehaviour {
 
 ### Serialized Class List
 
-| Class                | Desctiption                      | State |
-| :------------------- | :------------------------------- | :---- |
-| SerializedDropdown   | Popup field for dropdown object  | ❌    |
-| SerializedDictionary | Serialized for dictionary object | ❌    |
-| SerializedDirectory  | Serialized for directory object  | ❌    |
+| Class                                    | Desctiption                        | State |
+| :--------------------------------------- | :--------------------------------- | :---- |
+| SerializedDropdown                       | Popup field for dropdown object    | ❌    |
+| SerializedDictionary                     | Serialized for dictionary object   | ❌    |
+| [SerializedDirectory](#SerializedDirectory) | Serialized for directory object    | ✔️  |
+| SerializedTable                          | Serialized for mulit-column object | ❌    |
+
+#### SerializedDirectory
+
+Easily get foldout path in project, copy path with button.
+
+![inspector](./Document~/SerializedDirectory.png)
 
 ### Reference
 

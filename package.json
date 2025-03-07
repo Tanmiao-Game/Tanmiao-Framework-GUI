@@ -13,6 +13,11 @@
           "displayName": "Samples For Attribute",
           "description": "Samples for using attributes",
           "path": "Samples~/Samples For Attribute"
-      }
+      },
+      {
+        "displayName": "Samples For SerializedClass",
+        "description": "Samples for using serialized objects",
+        "path": "Samples~/Samples For SerializedClass"
+    }
    ]
 }

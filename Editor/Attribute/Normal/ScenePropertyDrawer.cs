@@ -82,17 +82,41 @@ namespace Akatsuki.Framework.GUI.Editor {
                         var scene = EditorSceneManager.GetSceneByPath(GetScenePathByName(selected));
                         EditorSceneManager.CloseScene(scene, true);
                         FreshLoadButton();
-                    }) { name = "load", text = "Close" });
+                    }) {
+                        name = "load",
+                        tooltip = "Close and remove additive scene",
+                        style = {
+                            minWidth = 30,
+                            backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain)),
+                            backgroundImage = Utility.GetEditorUtilityIcon("winbtn_win_close@2x"),
+                        },
+                    });
                 } else {
                     container.Add(new Button(() => {
                         EditorSceneManager.OpenScene(GetScenePathByName(selected), OpenSceneMode.Additive);
                         FreshLoadButton();
-                    }) { name = "load", text = "Open" });
+                    }) {
+                        name = "load",
+                        tooltip = "Open and load additive scene",
+                        style = {
+                            minWidth = 30,
+                            backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain)),
+                            backgroundImage = Utility.GetEditorUtilityIcon("d_Toolbar Plus@2x"),
+                        },
+                    });
                 }
             }
 
             if (((SceneAttribute)attribute).ShowOperator) {
-                container.Add(new Button(() => GUIUtility.systemCopyBuffer = GetScenePathByName(scenes[defaultIndex])) { name = "copy", text = "Copy" });
+                container.Add(new Button(() => GUIUtility.systemCopyBuffer = GetScenePathByName(scenes[defaultIndex])) {
+                    name = "copy",
+                    tooltip = "Copy path to clipboard",
+                    style = {
+                        minWidth = 30,
+                        backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain)),
+                        backgroundImage = Utility.GetEditorUtilityIcon("winbtn_win_restore@2x"),
+                    },
+                });
                 FreshLoadButton();
             }
 
