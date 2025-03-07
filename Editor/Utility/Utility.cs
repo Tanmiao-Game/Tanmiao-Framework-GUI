@@ -197,6 +197,15 @@ namespace Akatsuki.Framework.GUI.Editor {
         }
 
         /// <summary>
+        /// 是否是有效路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool IsValidPath(this string path) {
+            return !string.IsNullOrEmpty(path) && Directory.Exists(path);
+        }
+
+        /// <summary>
         /// 获得资源路径
         /// </summary>
         /// <param name="path">

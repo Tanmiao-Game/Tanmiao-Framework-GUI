@@ -6,16 +6,16 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(SelectionPathAttribute))]
     public class SelectionPathAttributeDrawer : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement() {
-                name = "path-selection",
-                style = {
-                    flexDirection = FlexDirection.Row,
-                    flexGrow = 1f,
-                    flexShrink = 1f,
-                }
-            };
+            var container = new VisualElement() { name = "path-selection" };
 
             if (property.propertyType == SerializedPropertyType.String) {
+                var pathField = new VisualElement() {
+                    style = {
+                        flexDirection = FlexDirection.Row,
+                    }
+                };
+                container.Add(pathField);
+
                 var value = property.stringValue;
                 var pathTextField = new TextField() {
                     name = "path-text-field",
@@ -26,7 +26,7 @@ namespace Akatsuki.Framework.GUI.Editor {
                         flexShrink = 1f,
                     }
                 }.BuildFieldAlignStyle();
-                container.Add(pathTextField);
+                pathField.Add(pathTextField);
 
                 var selectBtn = new Button(() => {
                     // 来源: https://forum.unity.com/threads/editorutility-openfilepanel-causes-error-log-for-endlayoutgroup.1389873/
@@ -49,10 +49,13 @@ namespace Akatsuki.Framework.GUI.Editor {
                         backgroundImage = Utility.GetEditorUtilityIcon("d_Folder Icon"),
                     },
                 };
-                container.Add(selectBtn);
+                pathField.Add(selectBtn);
+
+                if (!property.stringValue.IsValidPath()) {
+                    container.AddHelpBoxToProperty(null, "Path is not valid", HelpBoxMessageType.Error);
+                }
 
             } else {
-                container.style.flexDirection = FlexDirection.Column;
                 container.AddHelpBoxToProperty(property, $"{typeof(SelectionPathAttribute)} is only support for {typeof(string)}");
                 // container.Add(new HelpBox($"{typeof(SelectionPathAttribute)} is only support for {typeof(string)}", HelpBoxMessageType.Warning));
             }

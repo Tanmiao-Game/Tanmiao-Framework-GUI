@@ -7,20 +7,23 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(SerializedDirectory))]
     public class SerializedDirectoryInspector : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
+            var container = new VisualElement() { name = property.displayName };
+
             // properties
             var projectPathProperty = property.FindPropertyRelative($"<{nameof(SerializedDirectory.ProjectPath)}>k__BackingField");
             var foldoutProperty = property.FindPropertyRelative("foldout");
 
-            var container = new Foldout() {
+            var foldout = new Foldout() {
                 name = property.displayName,
                 text = property.displayName,
                 value = foldoutProperty.boolValue,
             };
-            var toggle = container.Q<Toggle>();
+            container.Add(foldout);
+            var toggle = foldout.Q<Toggle>();
             toggle.style.flexGrow = 0;
             toggle.RegisterCallback<MouseEnterEvent>(_ => toggle.BuildSelectedBackgroundColor());
             toggle.RegisterCallback<MouseLeaveEvent>(_ => toggle.BuildDefaultBackgroundColor());
-            container.RegisterValueChangedCallback(evt => {
+            foldout.RegisterValueChangedCallback(evt => {
                 foldoutProperty.boolValue = evt.newValue;
                 property.serializedObject.ApplyModifiedProperties();
             });
@@ -63,7 +66,11 @@ namespace Akatsuki.Framework.GUI.Editor {
                     Debug.LogError("Drop only one object or drop object is not in project");
                 }
             }
-            container.Add(new DragAndDropElement("Drop Foldout Here") { onDropEvent = OnDropItem });
+            foldout.Add(new DragAndDropElement("Drop Foldout Here") { onDropEvent = OnDropItem });
+
+            // check path
+            if (!projectPathProperty.stringValue.IsValidPath())
+                container.AddHelpBoxToProperty(null, "Path is not valid", HelpBoxMessageType.Error);
 
             return container;
         }
