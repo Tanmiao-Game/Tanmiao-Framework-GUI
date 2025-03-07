@@ -10,12 +10,9 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(SortingLayerAttribute))]
     public class SortingLayerPropertyDrawer : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement();
-
             var propertyType = property.propertyType;
             if (propertyType != SerializedPropertyType.Integer && propertyType != SerializedPropertyType.String) {
-                container.Add(new PropertyField(property));
-                return container;
+                return new PropertyField(property);
             }
 
             // Get Layer
@@ -33,14 +30,13 @@ namespace Akatsuki.Framework.GUI.Editor {
 
             var dropDown = new DropdownField(property.displayName, layers.Select(x => x.name).ToList(), defaultIndex).BuildFieldAlignStyle();
             dropDown.RegisterValueChangedCallback(evt => SetLayerValue(layers[layers.FindIndex(x => x.name == evt.newValue)]));
-            container.Add(dropDown);
 
             // check value and if value is empty, set value directly
             if ((propertyType == SerializedPropertyType.Integer && property.intValue != layers[defaultIndex].id) ||
                 (propertyType == SerializedPropertyType.String  && property.stringValue != layers[defaultIndex].name))
                 SetLayerValue(layers[defaultIndex]);
 
-            return container;
+            return dropDown;
         }
     }
 }

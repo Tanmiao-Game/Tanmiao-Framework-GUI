@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -27,8 +28,8 @@ namespace Akatsuki.Framework.GUI.Editor {
                     if (tryFindField == null || tryFindField.FieldType != typeof(bool)) {
                         var tryFindProperty = type.GetProperty(value, Flags);
                         if (tryFindProperty == null || tryFindProperty.PropertyType != typeof(bool)) {
-                            var tryFindMethod = type.GetMethod(value, Flags);
-                            if (tryFindMethod == null || tryFindMethod.GetParameters().Length > 0 || tryFindMethod.ReturnType != typeof(bool)) {
+                            var tryFindMethod = type.GetMethods(Flags).SingleOrDefault(method => method.Name == value && method.GetParameters().Length == 0 && method.ReturnType == typeof(bool));
+                            if (tryFindMethod == null) {
                                 thisResult = true;
                             } else {
                                 thisResult = (bool)tryFindMethod.Invoke(instance, null);

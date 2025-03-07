@@ -16,30 +16,27 @@ Draw inspector elements based on VisualElement
 
 ### Attribute List
 
-| Attribute                    | Desctiption                               | State |
-| :--------------------------- | :---------------------------------------- | :---- |
-| [HelpBox](#HelpBox)             | Draw a help box down field                | ✔️  |
-| [AnimatorParam](#AnimatorParam) | Popup aniamtor parameter key              | ✔️  |
-| [Method](#Method)               | Method button with parameter              | ✔️  |
-| [Expendable](#Expendable)       | Expend inspector for unity objects        | ✔️  |
-| [Selection](#Selection)         | Selection popup for const values          | ✔️  |
-| [SelectionPath](#SelectionPath) | Selection for path                        | ✔️  |
-| SelectionRef                 | Selection for SerializeReference object   | ❌    |
-| [EnableIf](#EnableIf)           | Enable or not for field                   | ✔️  |
-| [ShowIf](#ShowIf)               | Active or not for field                   | ✔️  |
-| [Layer](#Layer)                 | Layer for int / string field value        | ✔️  |
-| [SortingLayer](#SortingLayer)   | SortingLayer for int / string field value | ✔️  |
-| [Tag](#Tag)                     | Tag for string field value                | ✔️  |
-| Drapdown                     | Dropdown for value to select array        | ❌    |
-| ProgressBar                  | ProgressBar for slider value              | ❌    |
-| ResizableTextArea            | TextArea flex resize area                 | ❌    |
-| OnValueChanged               | Valued changed callback                   | ❌    |
-| Validator                    | Used for validating the fields            | ❌    |
-| Require                      | If empty throw error to remind user       | ❌    |
-| [Scene](#Scene)                 | Scene for string value                    | ✔️  |
-| [Preview](#Preview)             | Editor preview icon for object            | ✔️  |
-| BoxGroup                     | Group for fields                          | ❌    |
-| Foldout                      | Foldout for fields                        | ❌    |
+| Attribute                      | Desctiption                               | State |
+| :----------------------------- | :---------------------------------------- | :---- |
+| [HelpBox](#HelpBox)               | Draw a help box down field                | ✔️  |
+| [AnimatorParam](#AnimatorParam)   | Popup aniamtor parameter key              | ✔️  |
+| [Method](#Method)                 | Method button with parameter              | ✔️  |
+| [Expendable](#Expendable)         | Expend inspector for unity objects        | ✔️  |
+| [Selection](#Selection)           | Selection popup for const values          | ✔️  |
+| [SelectionPath](#SelectionPath)   | Selection for path                        | ✔️  |
+| SelectionRef                   | Selection for SerializeReference object   | ❌    |
+| [EnableIf](#EnableIf)             | Enable or not for field                   | ✔️  |
+| [ShowIf](#ShowIf)                 | Active or not for field                   | ✔️  |
+| [Layer](#Layer)                   | Layer for int / string field value        | ✔️  |
+| [SortingLayer](#SortingLayer)     | SortingLayer for int / string field value | ✔️  |
+| [Tag](#Tag)                       | Tag for string field value                | ✔️  |
+| Drapdown                       | Dropdown for value to select array        | ❌    |
+| [ProgressBar](#ProgressBar)       | ProgressBar for slider value              | ✔️  |
+| [OnValueChanged](#OnValueChanged) | Valued changed callback, editor only      | ✔️  |
+| [Scene](#Scene)                   | Scene for string value                    | ✔️  |
+| [Preview](#Preview)               | Editor preview icon for object            | ✔️  |
+| BoxGroup                       | Group for fields                          | ❌    |
+| Foldout                        | Foldout for fields                        | ❌    |
 
 #### HelpBox
 
@@ -136,6 +133,8 @@ public class Test : MonoBehaviour {
 
 #### EnableIf
 
+Default make field disable.
+
 ```
 public class Test : MonoBehaviour {
     public bool enableForValue1;
@@ -164,6 +163,8 @@ public class Test : MonoBehaviour {
 ![inspector](./Document~/EnableIf.png)
 
 #### ShowIf
+
+Default make field inactive.
 
 ```
 public class Test : MonoBehaviour {
@@ -229,7 +230,49 @@ public class Test : MonoBehaviour {
 
 ![inspector](./Document~/Tag.png)
 
+#### ProgressBar
+
+Directly drag progressbar to change value.  
+If click right mouse button, will show menu actions "Edit", "Set To Min Value", "Set To Max Value".
+
+```
+public class Test : MonoBehaviour {
+    [ProgressBar(0, 100, System.Drawing.KnownColor.IndianRed)]
+    public int health;
+
+    [ProgressBar(0, 200, System.Drawing.KnownColor.SkyBlue)]
+    public float exp;
+}
+```
+
+![inspector](./Document~/ProgressBar.png)
+
+#### OnValueChanged
+
+Callback for editor only, find method with non-parameter.
+
+```
+public class Test : MonoBehaviour {
+    [OnValueChanged(nameof(OnValueChangedCallback))]
+    public int value;
+    [OnValueChanged(nameof(OnValueChangedCallback2))]
+    public int value2;
+  
+    public void OnValueChangedCallback() {
+        Debug.Log($"1. {value}");
+    }
+    public void OnValueChangedCallback(int temp) {
+        Debug.Log($"2. {value}");
+    }
+    public void OnValueChangedCallback2(int value) {
+        Debug.Log($"3. {value2}");
+    }
+}
+```
+
 #### Scene
+
+Default find all scenes in project, use first parameter to limit build scenes
 
 ```
 public class Test : MonoBehaviour {

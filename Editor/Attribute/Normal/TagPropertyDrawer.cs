@@ -10,12 +10,9 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(TagAttribute))]
     public class TagPropertyDrawer : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement();
-
             var propertyType = property.propertyType;
             if (propertyType != SerializedPropertyType.String) {
-                container.Add(new PropertyField(property));
-                return container;
+                return new PropertyField(property);
             }
 
             // Get tags
@@ -30,13 +27,12 @@ namespace Akatsuki.Framework.GUI.Editor {
 
             var dropDown = new DropdownField(property.displayName, tags, defaultIndex).BuildFieldAlignStyle();
             dropDown.RegisterValueChangedCallback(evt => SetTagValue(evt.newValue));
-            container.Add(dropDown);
 
             // check value and if value is empty, set value directly
             if (property.stringValue != tags[defaultIndex])
                 SetTagValue(tags[defaultIndex]);
 
-            return container;
+            return dropDown;
         }
     }
 }

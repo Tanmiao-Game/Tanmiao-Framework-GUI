@@ -12,6 +12,7 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomEditor(typeof(UnityEngine.Object), true)]
     public class CustomCommonEditor : global::UnityEditor.Editor {
         protected List<SerializedProperty> serializers = new();
+        protected IEnumerable<FieldInfo> fields;
         protected IEnumerable<MethodInfo> methods;
         
         protected static BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
@@ -41,11 +42,9 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// </summary>
         protected virtual void InitReflectionValues() {
             var type = target.GetType();
-            // var fields = type.GetFields(Flags);
+            fields = type.GetFields(Flags);
             // var properties = type.GetProperties(Flags);
-            var methods = type.GetMethods(Flags);
-            
-            this.methods = methods.Where(method => method.GetCustomAttribute<MethodAttribute>() != null);
+            methods = type.GetMethods(Flags).Where(method => method.GetCustomAttribute<MethodAttribute>() != null);
         }
 
         public override VisualElement CreateInspectorGUI() {

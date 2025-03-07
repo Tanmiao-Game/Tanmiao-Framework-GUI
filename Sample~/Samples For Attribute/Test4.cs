@@ -11,6 +11,10 @@ namespace Akatsuki.Framework.GUI.AttributeTest {
             return EnableForValue2;
         }
 
+        public bool EnableForValue3(int temp) {
+            return false;
+        }
+
         [EnableIf(nameof(enableForValue1))]
         [SelectionPath]
         public string value1;

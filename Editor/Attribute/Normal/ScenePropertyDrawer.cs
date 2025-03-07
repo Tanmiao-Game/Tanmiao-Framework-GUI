@@ -16,8 +16,7 @@ namespace Akatsuki.Framework.GUI.Editor {
 
             var propertyType = property.propertyType;
             if (propertyType != SerializedPropertyType.String && propertyType != SerializedPropertyType.Integer) {
-                container.Add(new PropertyField(property));
-                return container;
+                return new PropertyField(property);
             }
 
             // get scenes

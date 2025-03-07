@@ -10,12 +10,9 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(LayerAttribute))]
     public class LayerPropertyDrawer : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement();
-
             var propertyType = property.propertyType;
             if (propertyType != SerializedPropertyType.Integer && propertyType != SerializedPropertyType.String) {
-                container.Add(new PropertyField(property));
-                return container;
+                return new PropertyField(property);
             }
 
             // Get Layer
@@ -33,14 +30,13 @@ namespace Akatsuki.Framework.GUI.Editor {
 
             var dropDown = new DropdownField(property.displayName, layers, defaultIndex).BuildFieldAlignStyle();
             dropDown.RegisterValueChangedCallback(evt => SetLayerValue(evt.newValue));
-            container.Add(dropDown);
 
             // check value and if value is empty, set value directly
             if ((propertyType == SerializedPropertyType.Integer && property.intValue != LayerMask.NameToLayer(layers[defaultIndex])) ||
                 (propertyType == SerializedPropertyType.String  && property.stringValue != layers[defaultIndex]))
                 SetLayerValue(layers[defaultIndex]);
 
-            return container;
+            return dropDown;
         }
     }
 }
