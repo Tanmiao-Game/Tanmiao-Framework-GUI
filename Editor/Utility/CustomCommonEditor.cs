@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Akatsuki.Framework.GUI.Editor {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UnityEngine.Object), true)]
+    [CustomEditor(typeof(UnityEngine.Object), true, isFallback = true)]
     public class CustomCommonEditor : global::UnityEditor.Editor {
         protected List<SerializedProperty> serializers = new();
         protected IEnumerable<FieldInfo> fields;
