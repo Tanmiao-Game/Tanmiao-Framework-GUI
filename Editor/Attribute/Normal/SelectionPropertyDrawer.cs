@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
 namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(SelectionAttribute))]
     public class SelectionPopAttributeDrawer : PropertyDrawer {
         private static readonly Dictionary<Type, List<string>> caches = new();
+        private static readonly Dictionary<string, Assembly> dllCaches = new();
 
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
             var container = new VisualElement() {
                 name = property.displayName,
                 style = {
-                    flexDirection = FlexDirection.Row,
                     flexGrow = 1f,
                     flexShrink = 1f,
                 }
@@ -28,6 +31,9 @@ namespace Akatsuki.Framework.GUI.Editor {
                     var values = type.GetFields();
                     names = new() { "" };
                     for (int i = 0; i < values.Length; i++) {
+                        bool isConstant = values[i].IsLiteral && !values[i].IsInitOnly;
+                        if (!isConstant)
+                            continue;
                         var name = values[i].GetRawConstantValue().ToString();
                         if (string.IsNullOrEmpty(name))
                             continue;
@@ -61,6 +67,7 @@ namespace Akatsuki.Framework.GUI.Editor {
 
                 // editable
                 if (selection.editable) {
+                    container.style.flexDirection = FlexDirection.Row;
                     var editTextField = new TextField() {
                         name = "edit-text-field",
                         label = property.displayName,
@@ -105,10 +112,52 @@ namespace Akatsuki.Framework.GUI.Editor {
                     container.Add(editBtn);
                 }
 
-            } else {
-                container.style.flexDirection = FlexDirection.Column;
-                container.AddHelpBoxToProperty(property, $"{typeof(SelectionAttribute)} is only support for {typeof(string)}");
-                // container.Add(new HelpBox($"{typeof(SelectionAttribute)} is only support for {typeof(string)}", HelpBoxMessageType.Info));
+            }
+            else if (property.propertyType == SerializedPropertyType.ManagedReference) {
+                // get dll and types
+                var fullNames = property.managedReferenceFieldTypename.Split(" ");
+                var dllName = fullNames[0];
+                var inrName = fullNames[1];
+                var types = GetTypes(dllName, inrName);
+                
+                if (types == default || types.Length == 0) {
+                    // add help box
+                    container.AddHelpBoxToProperty(property, $"{inrName} found no types", HelpBoxMessageType.Warning);
+                } else {
+                    // parse to string values
+                    // add first value "Null"
+                    var values = new string[types.Length + 1];
+                    values[0] = "";
+                    for (int i = 0; i < types.Length; i++) values[i + 1] = types[i].Name;
+
+                    PropertyField managerReferenceField = new(property, $"[Serialized]{property.displayName}");
+                    managerReferenceField.ActiveOrNot(property.managedReferenceValue != null);
+                    managerReferenceField.BuildFrameboxStyle();
+                    managerReferenceField.RegisterCallback<GeometryChangedEvent>(_ => {
+                        var toggle = managerReferenceField.Q<Toggle>();
+                        toggle.RegisterCallback<MouseEnterEvent>(_ => toggle.BuildSelectedBackgroundColor());
+                        toggle.RegisterCallback<MouseLeaveEvent>(_ => toggle.BuildDefaultBackgroundColor());
+                    });
+
+                    var dropFied = new DropdownField(property.displayName) {
+                        value = property.managedReferenceValue?.GetType().Name ?? "Null",
+                        style = { flexGrow = 1f, flexShrink = 1f, } };
+                    dropFied.AddToClassList("unity-base-field__aligned");
+                    dropFied.RegisterCallback<ClickEvent>(@event => {
+                        var field = new AdvanceDropField(inrName, values, item => {
+                            bool isNull = string.IsNullOrEmpty(item.fullName);
+                            property.managedReferenceValue = isNull ? null : GetTypeByAssembley(dllName, inrName, item.fullName);
+                            property.serializedObject.ApplyModifiedProperties();
+                            dropFied.value = property.managedReferenceValue?.GetType().Name ?? "Null";
+                        });
+                        field.Show(dropFied.worldBound);
+                    });
+                    container.Add(dropFied);
+                    container.Add(managerReferenceField);
+                }
+            }
+            else {
+                container.AddHelpBoxToProperty(property, $"{typeof(SelectionAttribute)} is not support for {property.propertyType}");
             }
 
             return container;
@@ -119,6 +168,27 @@ namespace Akatsuki.Framework.GUI.Editor {
                 return "(null)";
             else
                 return value;
+        }
+
+        private Assembly GetDLL(string dllName) {
+            if (dllCaches.ContainsKey(dllName)) return dllCaches[dllName];
+            return dllCaches[dllName] = Assembly.Load(dllName);
+        }
+
+        private Type[] GetTypes(string dllName, string specialName) {
+            var dll = GetDLL(dllName);
+            var list = dll.GetTypes().Where(t => !t.IsAbstract && !t.IsInterface);
+            var type = dll.GetType(specialName);
+            if (type.IsInterface)
+                return list.Where(t => t.GetInterface(specialName) != null)?.ToArray();
+            else if (type.IsAbstract)
+                return list.Where(t => t.IsSubclassOf(type))?.ToArray();
+            return default;
+        }
+
+        private object GetTypeByAssembley(string dllName, string specialName, string className) {
+            var type = GetTypes(dllName, specialName).SingleOrDefault(t => t.Name == className);
+            return type == null ? throw new Exception($"type {className} not found in {dllName}") : GetDLL(dllName).CreateInstance(type.FullName);
         }
     }
 }

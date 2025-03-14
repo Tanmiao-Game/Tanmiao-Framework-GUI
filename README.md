@@ -16,27 +16,26 @@ Draw inspector elements based on VisualElement
 
 ### Attribute List
 
-| Attribute                      | Desctiption                               | State |
-| :----------------------------- | :---------------------------------------- | :---- |
-| [HelpBox](#HelpBox)               | Draw a help box down field                | ✔️  |
-| [AnimatorParam](#AnimatorParam)   | Popup aniamtor parameter key              | ✔️  |
-| [Method](#Method)                 | Method button with parameter              | ✔️  |
-| [Expendable](#Expendable)         | Expend inspector for unity objects        | ✔️  |
-| [Selection](#Selection)           | Selection popup for const values          | ✔️  |
-| [SelectionPath](#SelectionPath)   | Selection for path                        | ✔️  |
-| SelectionRef                   | Selection for SerializeReference object   | ❌    |
-| [EnableIf](#EnableIf)             | Enable or not for field                   | ✔️  |
-| [ShowIf](#ShowIf)                 | Active or not for field                   | ✔️  |
-| [Layer](#Layer)                   | Layer for int / string field value        | ✔️  |
-| [SortingLayer](#SortingLayer)     | SortingLayer for int / string field value | ✔️  |
-| [Tag](#Tag)                       | Tag for string field value                | ✔️  |
-| Drapdown                       | Dropdown for value to select array        | ❌    |
-| [ProgressBar](#ProgressBar)       | ProgressBar for slider value              | ✔️  |
-| [OnValueChanged](#OnValueChanged) | Valued changed callback, editor only      | ✔️  |
-| [Scene](#Scene)                   | Scene for string value                    | ✔️  |
-| [Preview](#Preview)               | Editor preview icon for object            | ✔️  |
-| BoxGroup                       | Group for fields                          | ❌    |
-| Foldout                        | Foldout for fields                        | ❌    |
+| Attribute                      | Desctiption                                        | State |
+| :----------------------------- | :------------------------------------------------- | :---- |
+| [HelpBox](#HelpBox)               | Draw a help box down field                         | ✔️  |
+| [AnimatorParam](#AnimatorParam)   | Popup aniamtor parameter key                       | ✔️  |
+| [Method](#Method)                 | Method button with parameter                       | ✔️  |
+| [Expendable](#Expendable)         | Expend inspector for unity objects                 | ✔️  |
+| [Selection](#Selection)           | Selection popup for const/SerializeReference value | ✔️  |
+| [SelectionPath](#SelectionPath)   | Selection for path                                 | ✔️  |
+| [EnableIf](#EnableIf)             | Enable or not for field                            | ✔️  |
+| [ShowIf](#ShowIf)                 | Active or not for field                            | ✔️  |
+| [Layer](#Layer)                   | Layer for int / string field value                 | ✔️  |
+| [SortingLayer](#SortingLayer)     | SortingLayer for int / string field value          | ✔️  |
+| [Tag](#Tag)                       | Tag for string field value                         | ✔️  |
+| Drapdown                       | Dropdown for value to select array                 | ❌    |
+| [ProgressBar](#ProgressBar)       | ProgressBar for slider value                       | ✔️  |
+| [OnValueChanged](#OnValueChanged) | Valued changed callback, editor only               | ✔️  |
+| [Scene](#Scene)                   | Scene for string value                             | ✔️  |
+| [Preview](#Preview)               | Editor preview icon for object                     | ✔️  |
+| BoxGroup                       | Group for fields                                   | ❌    |
+| Foldout                        | Foldout for fields                                 | ❌    |
 
 #### HelpBox
 
@@ -105,6 +104,11 @@ public class Test : MonoBehaviour {
 
 #### Selection
 
+If selection attribute with non-parameters, it will make selection for abstract or interface,
+decided by you field type.  
+Otherwise make const string list from target type.  
+If wait edit for value that is not in target type const fields, just set `editable` parameter true
+
 ```
 public class Test : MonoBehaviour {
     [Selection(typeof(CommonForTest))]
@@ -113,6 +117,15 @@ public class Test : MonoBehaviour {
     public string textForSelection2;
     [Selection(typeof(CommonForTest.CommonForTestOfSub), true)]
     public string textForSelection3;
+
+    [Space]
+    [Selection]
+    [SerializeReference]
+    public ICommonForTest testInterfaceSelection;
+
+    [Selection]
+    [SerializeReference]
+    public AbstractForTest testAbstractSelection;
 }
 ```
 

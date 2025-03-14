@@ -30,5 +30,10 @@ namespace Akatsuki.Framework.GUI.AttributeTest {
         public void TestMethod(GameObject obj, Animator animator, string str) {
             Debug.Log($"value1 {obj}, value2 {animator}, value3 {str}");
         }
+
+        [Method]
+        public void Test(CommonForTest test) {
+            Debug.LogError(test.value);
+        }
     }
 }

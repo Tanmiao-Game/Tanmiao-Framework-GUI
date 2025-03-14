@@ -64,7 +64,8 @@ namespace Akatsuki.Framework.GUI.Editor {
         /// <param name="value"></param>
         private void CreateDropDownItem(FullAdvanceDropItem root, string value) {
             FullAdvanceDropItem parent = root;
-            foreach (var str in value.Split("/")) {
+            var splitValue = value.Contains("/") ? "/" : ".";
+            foreach (var str in value.Split(splitValue)) {
                 var child = parent.children.SingleOrDefault(c => c.name.Equals(str));
                 if (child == null) {
                     child = new FullAdvanceDropItem(str, parent == root ? "" : parent.fullName);

@@ -108,9 +108,17 @@ namespace Akatsuki.Framework.GUI.Editor {
                 result = new BoundsIntField(label);
                 (result as BoundsIntField).RegisterValueChangedCallback(evt => onValueCallback(evt.newValue));
             }
-            else {
+            else if (type == typeof(string)) {
                 result = new TextField(label);
                 (result as TextField).RegisterValueChangedCallback(evt => onValueCallback(evt.newValue));
+            }
+            else {
+                var wrapper = SerializedObjectWrapper.Create(Activator.CreateInstance(type));
+                var serialized = new SerializedObject(wrapper);
+
+                result = new PropertyField(serialized.FindProperty("data"), label);
+                result.Bind(serialized);
+                result.RegisterCallback<MouseLeaveEvent>(evt => onValueCallback(wrapper.data));
             }
             
             return result;

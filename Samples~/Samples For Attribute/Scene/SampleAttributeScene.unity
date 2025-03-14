@@ -542,8 +542,24 @@ MonoBehaviour:
   testForSelection1: 0
   textForSelection2: B
   textForSelection3: SubD
+  testInterfaceSelection:
+    rid: 4224371275472306180
+  testAbstractSelection:
+    rid: 4224371275472306181
   testForPath1: 0
   testForPath2: Assets/Scripts
+  references:
+    version: 2
+    RefIds:
+    - rid: 4224371275472306180
+      type: {class: CommonForTest, ns: Akatsuki.Framework.GUI.AttributeTest, asm: Assembly-CSharp}
+      data:
+        value: 
+    - rid: 4224371275472306181
+      type: {class: AbstractForTestA, ns: Akatsuki.Framework.GUI.AttributeTest, asm: Assembly-CSharp}
+      data:
+        abstractIntValue: 0
+        abstractFloatValue: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,8 +771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerIntValue: 1
   layerStrValue: Ignore Raycast
-  sortingLayerIntValue: 1351446967
-  sortingLayerStrValue: Top
+  sortingLayerIntValue: 0
+  sortingLayerStrValue: Default
   tagValue: Finish
   sceneName: SampleAttributeScene 2
   sceneIndex: 1

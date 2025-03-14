@@ -9,6 +9,16 @@ namespace Akatsuki.Framework.GUI.AttributeTest {
         [Selection(typeof(CommonForTest.CommonForTestOfSub), true)]
         public string textForSelection3;
 
+        [Space]
+        [Selection]
+        [SerializeReference]
+        public ICommonForTest testInterfaceSelection;
+
+        [Selection]
+        [SerializeReference]
+        public AbstractForTest testAbstractSelection;
+
+        [Space]
         [SelectionPath]
         public int testForPath1;
         [SelectionPath]
