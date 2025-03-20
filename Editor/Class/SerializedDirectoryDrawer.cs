@@ -7,26 +7,23 @@ namespace Akatsuki.Framework.GUI.Editor {
     [CustomPropertyDrawer(typeof(SerializedDirectory))]
     public class SerializedDirectoryInspector : PropertyDrawer {
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
-            var container = new VisualElement() { name = property.displayName };
+            var sessionKey = property.displayName;
+            var container = new VisualElement() { name = sessionKey };
 
             // properties
             var projectPathProperty = property.FindPropertyRelative($"<{nameof(SerializedDirectory.ProjectPath)}>k__BackingField");
-            var foldoutProperty = property.FindPropertyRelative("foldout");
 
             var foldout = new Foldout() {
-                name = property.displayName,
-                text = property.displayName,
-                value = foldoutProperty.boolValue,
+                name = sessionKey,
+                text = sessionKey,
+                value = SessionState.GetBool(sessionKey, true),
             };
             container.Add(foldout);
             var toggle = foldout.Q<Toggle>();
             toggle.style.flexGrow = 0;
             toggle.RegisterCallback<MouseEnterEvent>(_ => toggle.BuildSelectedBackgroundColor());
             toggle.RegisterCallback<MouseLeaveEvent>(_ => toggle.BuildDefaultBackgroundColor());
-            foldout.RegisterValueChangedCallback(evt => {
-                foldoutProperty.boolValue = evt.newValue;
-                property.serializedObject.ApplyModifiedProperties();
-            });
+            foldout.RegisterValueChangedCallback(evt => SessionState.SetBool(sessionKey, evt.newValue));
 
             // path field
             var pathField = new Label() {

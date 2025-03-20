@@ -10,7 +10,9 @@ namespace Akatsuki.Framework.GUI.Editor {
             if (property.propertyType != SerializedPropertyType.ObjectReference)
                 return new PropertyField(property);
 
-            var container = new Foldout() { value = false };
+            var sessionKey = property.displayName;
+            var container = new Foldout() { value = SessionState.GetBool(sessionKey, true), };
+            container.RegisterValueChangedCallback(evt => SessionState.SetBool(sessionKey, evt.newValue));
             var toggle = container.Q<Toggle>();
 
             // force callback

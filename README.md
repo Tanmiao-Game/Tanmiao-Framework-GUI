@@ -105,8 +105,8 @@ public class Test : MonoBehaviour {
 #### Selection
 
 If selection attribute with non-parameters, it will make selection for abstract or interface,
-decided by you field type.  
-Otherwise make const string list from target type.  
+decided by you field type.
+Otherwise make const string list from target type.
 If wait edit for value that is not in target type const fields, just set `editable` parameter true
 
 ```
@@ -325,12 +325,16 @@ public class Test : MonoBehaviour {
 
 ### Serialized Class List
 
-| Class                                    | Desctiption                        | State |
-| :--------------------------------------- | :--------------------------------- | :---- |
-| SerializedDropdown                       | Popup field for dropdown object    | ❌    |
-| SerializedDictionary                     | Serialized for dictionary object   | ❌    |
-| [SerializedDirectory](#SerializedDirectory) | Serialized for directory object    | ✔️  |
-| SerializedTable                          | Serialized for mulit-column object | ❌    |
+| Class                                      | Desctiption                        | State |
+| :----------------------------------------- | :--------------------------------- | :---- |
+| SerializedDropdown                         | Popup field for dropdown object    | ❌    |
+| [SerializedDictionary](#SerializedDictionary) | Serialized for dictionary object   | ✔️  |
+| [SerializedDirectory](#SerializedDirectory)   | Serialized for directory object    | ✔️  |
+| SerializedTable                            | Serialized for mulit-column object | ❌    |
+
+#### SerializedDictionary
+
+![inspector](./Document~/SerializedDictionary.png)
 
 #### SerializedDirectory
 

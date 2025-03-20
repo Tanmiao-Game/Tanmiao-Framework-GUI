@@ -20,15 +20,6 @@ namespace Akatsuki.Framework.GUI {
         /// </summary>
         public string FullPath => GetFullAssetsPath(ProjectPath);
 
-#if UNITY_EDITOR
-        /// <summary>
-        /// 编辑器下是否展开，默认 true，仅编辑器使用
-        /// </summary>
-        [SerializeField]
-        [HideInInspector]
-        internal bool foldout = true;
-#endif
-
         public SerializedDirectory(string path) {
             ProjectPath = path;
         }

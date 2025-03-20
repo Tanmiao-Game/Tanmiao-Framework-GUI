@@ -23,8 +23,10 @@ namespace Akatsuki.Framework.GUI.Editor {
             values = new object[parameters.Length];
 
             // foldout
+            var sessionKey = method.Name;
             var foldout = new Foldout() {
                 text  = $"[Method]{this.name}",
+                value = SessionState.GetBool(sessionKey, true),
                 style = {
                     flexGrow = 1f,
                 }
@@ -40,6 +42,7 @@ namespace Akatsuki.Framework.GUI.Editor {
             this.Add(foldout);
 
             // force callback
+            foldout.RegisterValueChangedCallback(evt => SessionState.SetBool(sessionKey, evt.newValue));
             toggle.RegisterCallback<MouseEnterEvent>(_ => toggle.BuildSelectedBackgroundColor());
             toggle.RegisterCallback<MouseLeaveEvent>(_ => toggle.BuildDefaultBackgroundColor());
 
