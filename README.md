@@ -1,8 +1,8 @@
-# Akatsuki-Framework-GUI
+# Tanmiao-Framework-GUI
 
 > Framework of UIElement Drawers
 
-[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI/blob/main/LICENSE.md)
+[![Unity 2022.3+](https://img.shields.io/badge/unity-2022.3%2B-blue.svg)](https://unity3d.com/get-unity/download) [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/Tanmiao-Game/Tanmiao-Framework-GUI/blob/main/LICENSE.md)
 
 Draw inspector elements based on VisualElement
 
@@ -11,7 +11,7 @@ Draw inspector elements based on VisualElement
 * click `Add package from git url ...`
 * input path followed
   ```
-  https://github.com/Akatsuki-Game/Akatsuki-Framework-GUI.git
+  https://github.com/Tanmiao-Game/Tanmiao-Framework-GUI.git
   ```
 
 ### Attribute List
