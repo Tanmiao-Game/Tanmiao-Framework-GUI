@@ -1,12 +1,12 @@
 {
-    "name": "com.akatsuki.framework.gui",
+    "name": "com.tanmaio.framework.gui",
     "version": "0.0.1",
-    "displayName": "Akatsuki Framework GUI",
-    "description": "Akatsuki Framework for gui drawer and serialized objects",
+    "displayName": "Tanmiao Framework GUI",
+    "description": "Tanmiao Framework for gui drawer and serialized objects",
     "unity": "2022.3",
     "author": {
-      "name": "Akatsuki",
-      "url": "https://github.com/Akatsuki-Game"
+      "name": "Tanmiao",
+      "url": "https://github.com/Tanmiao-Game"
     },
     "samples": [
       {
